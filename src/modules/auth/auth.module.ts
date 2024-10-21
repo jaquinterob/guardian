@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Bishop, BishopSchema } from './models/bishop';
 import { Ward, WardSchema } from './models/ward';
 import { Stake, StakeSchema } from './models/stake';
+import { BishopService } from './services/bishop.service';
+import { BishopController } from './controllers/bishop.controller';
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { Stake, StakeSchema } from './models/stake';
       { name: Stake.name, schema: StakeSchema },
     ]),
   ],
-  controllers: [AuthController],
-  providers: [AuthService],
+  controllers: [AuthController, BishopController],
+  providers: [AuthService, BishopService],
 })
 export class AuthModule {}
