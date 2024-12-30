@@ -38,7 +38,6 @@ pipeline {
       steps {
         sh """
           docker build \
-            --build-arg GEMINI_API_KEY=${GEMINI_API_KEY} \
             --build-arg MONGODB_URI=${MONGODB_URI} \
             -t ${IMAGE_NAME} .
         """
