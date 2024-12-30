@@ -50,7 +50,6 @@ pipeline {
         script {
           sh """
             docker run -dp ${PORT}:3000 \
-              -e GEMINI_API_KEY=${GEMINI_API_KEY} \
               -e MONGODB_URI=${MONGODB_URI} \
               --name ${APP_NAME} ${IMAGE_NAME}
           """
