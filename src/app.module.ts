@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth/auth.module';
-import { MONGO_CONNECT_LOCAL } from './db/mongo';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useFactory: () => ({
-        uri: process.env.MONGO_CONNECT || MONGO_CONNECT_LOCAL,
-      }),
-    }),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
   ],
   controllers: [],

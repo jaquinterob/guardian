@@ -2,9 +2,10 @@ pipeline {
   agent any
   
   environment {
-    PORT = '5002' 
-    IMAGE_NAME = 'guardian_nest_image' 
-    APP_NAME = 'GUARDIAN_NEST_APP' 
+    PORT = '15001' 
+    IMAGE_NAME = 'guardian_backend_nest_image' 
+    APP_NAME = 'GUARDIAN_BACKEND_NEST_APP' 
+    MONGODB_URI = credentials('uri_mongo_guardian')
   }
   
   stages {
@@ -35,19 +36,26 @@ pipeline {
     
     stage('Docker build') {
       steps {
-        sh "docker build -t $IMAGE_NAME ."
+        sh """
+          docker build \
+            --build-arg GEMINI_API_KEY=${GEMINI_API_KEY} \
+            --build-arg MONGODB_URI=${MONGODB_URI} \
+            -t ${IMAGE_NAME} .
+        """
       }
     }
 
     stage('Launch the app in the docker container') {
       steps {
         script {
-          withCredentials([string(credentialsId: 'MONGO_CONNECT', variable: 'MONGO_CONNECT')]) {
-            sh "docker run -dp $PORT:3000 --name $APP_NAME -e MONGO_CONNECT=$MONGO_CONNECT $IMAGE_NAME"
-           }
+          sh """
+            docker run -dp ${PORT}:3000 \
+              -e GEMINI_API_KEY=${GEMINI_API_KEY} \
+              -e MONGODB_URI=${MONGODB_URI} \
+              --name ${APP_NAME} ${IMAGE_NAME}
+          """
         }
       }
     }
   }
-
 }
