@@ -2,7 +2,7 @@ pipeline {
   agent any
   
   environment {
-    PORT = '15001' 
+    PORT = '5123' 
     IMAGE_NAME = 'guardian_backend_nest_image' 
     APP_NAME = 'GUARDIAN_BACKEND_NEST_APP' 
     MONGODB_URI = credentials('uri_mongo_guardian')
