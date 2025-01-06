@@ -3,7 +3,7 @@ WORKDIR /app
 ARG MONGODB_URI
 ENV MONGODB_URI=${MONGODB_URI}
 COPY package*.json ./
-RUN npm install
+RUN npm install --force
 COPY . .
 RUN npm run build
 EXPOSE 3000
