@@ -1,4 +1,4 @@
-# Estrategia de Manejo de Ramas en Git para Principiantes
+# Estrategia de Manejo de Ramas en Git
 
 Este documento describe cómo manejaremos las ramas y Pull Requests (PRs) en el proyecto. Con una rama `develop` como el lugar principal de trabajo, los desarrolladores harán PRs para fusionar sus cambios a `develop` y, una vez que todo esté probado y listo, se hará un PR de `develop` a `master` para despliegue en producción.
 
